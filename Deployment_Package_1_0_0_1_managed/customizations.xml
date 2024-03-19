@@ -1,0 +1,51 @@
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Entities></Entities>
+  <Roles></Roles>
+  <Workflows>
+    <Workflow WorkflowId="{f0698e13-28dd-4fd6-98b8-36dd18420c71}" Name="PDF Extraction">
+      <JsonFileName>/Workflows/PDFExtraction-F0698E13-28DD-4FD6-98B8-36DD18420C71.json</JsonFileName>
+      <Type>1</Type>
+      <Subprocess>0</Subprocess>
+      <Category>6</Category>
+      <Mode>0</Mode>
+      <Scope>4</Scope>
+      <OnDemand>0</OnDemand>
+      <TriggerOnCreate>0</TriggerOnCreate>
+      <TriggerOnDelete>0</TriggerOnDelete>
+      <AsyncAutodelete>0</AsyncAutodelete>
+      <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+      <StateCode>1</StateCode>
+      <StatusCode>2</StatusCode>
+      <RunAs>1</RunAs>
+      <IsTransacted>1</IsTransacted>
+      <IntroducedVersion>1.0</IntroducedVersion>
+      <IsCustomizable>1</IsCustomizable>
+      <BusinessProcessType>0</BusinessProcessType>
+      <UIFlowType>2</UIFlowType>
+      <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+      <Metadata>{"isvalid":true,"schemaVersion":"ROBIN_20211012","containsActiveConnections":false}</Metadata>
+      <Inputs>{"schema":null}</Inputs>
+      <Outputs>{"schema":null}</Outputs>
+      <Dependencies>{"childFlows":[],"workQueues":[]}</Dependencies>
+      <ConnectionReferences>[]</ConnectionReferences>
+      <Definition>"@@ConnectionString: ''\r\n@@Type: 'Local'\r\n@@DesktopType: 'local'\r\n@@DisplayName: 'Local computer'\r\nIMPORT 'controlRepo.appmask' AS appmask\r\nIMPORT 'imageRepo.imgrepo' AS imgrepo\r\n@SENSITIVE: []\r\nPdf.ExtractTextFromPDF.ExtractText PDFFile: $'''D:\\\\RPA_PDF_Extraction\\\\PDF_1.PDF''' DetectLayout: False ExtractedText=&gt; ExtractedPDFText\r\nFile.WriteText File: $'''D:\\\\RPA_PDF_Extraction\\\\PDF_Extraction.txt''' TextToWrite: ExtractedPDFText AppendNewLine: True IfFileExists: File.IfFileExists.Overwrite Encoding: File.FileEncoding.UTF8\r\nCALL Jupyter_activation\r\nUIAutomation.CloseWindow.CloseByInstanceOrHandle WindowInstance: Browser2\r\nFUNCTION Jupyter_activation GLOBAL\r\n    System.RunApplication.RunApplication ApplicationPath: $'''C:\\\\WINDOWS\\\\system32\\\\cmd.exe''' WorkingDirectory: $'''C:\\\\Users\\\\NarasimhunVedarthamr\\\\Desktop''' WindowStyle: System.ProcessWindowStyle.Maximized ProcessId=&gt; AppProcessId\r\n    MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: $'''cd C:\\\\Users\\\\NarasimhunVedarthamr\\\\anaconda3\\\\Scripts{Return}''' DelayBetweenKeystrokes: 10 SendTextAsHardwareKeys: False\r\n    MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: $'''activate base{Return}''' DelayBetweenKeystrokes: 10 SendTextAsHardwareKeys: False\r\n    MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: $'''cd C:\\\\Users\\\\NarasimhunVedarthamr{Return}''' DelayBetweenKeystrokes: 10 SendTextAsHardwareKeys: False\r\n    MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: $'''jupyter notebook --port 8886{Return}''' DelayBetweenKeystrokes: 10 SendTextAsHardwareKeys: False\r\n    WAIT 10\r\n    WebAutomation.LaunchEdge.LaunchEdge Url: $'''http://localhost:8886/notebooks/PDF_Extraction_Final.ipynb''' WindowState: WebAutomation.BrowserWindowState.Maximized ClearCache: False ClearCookies: False WaitForPageToLoadTimeout: 60 Timeout: 60 BrowserInstance=&gt; Browser2\r\n    WAIT 5\r\n    MouseAndKeyboard.SendKeys.FocusAndSendKeys TextToSend: $'''{Shift}({Return})''' DelayBetweenKeystrokes: 10 SendTextAsHardwareKeys: False\r\nEND FUNCTION\r\n"</Definition>
+      <SchemaVersion>2022.06</SchemaVersion>
+      <DesktopFlowModules>[]</DesktopFlowModules>
+      <PrimaryEntity>none</PrimaryEntity>
+      <LocalizedNames>
+        <LocalizedName languagecode="1033" description="PDF Extraction" />
+      </LocalizedNames>
+    </Workflow>
+  </Workflows>
+  <FieldSecurityProfiles></FieldSecurityProfiles>
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <CustomControls />
+  <EntityDataProviders />
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
+</ImportExportXml>
